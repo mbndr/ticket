@@ -1,2 +1,2 @@
 # Ticket
-A ticket tracker completely in the browser using LocalStorage. WIP!
+[See Github pages](https://mbndr.github.io/ticket/about.html)

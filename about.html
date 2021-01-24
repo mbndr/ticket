@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎫 Ticket - About</title>
+    <style>
+        .container {
+            margin: 10px auto;
+            max-width: 550px;
+            box-sizing: border-box;
+            background-color: white;
+        }
+        a, a:visited {
+            text-decoration: none;
+            color: #1c548a;
+        }
+        a:hover, a:active {
+            text-decoration: underline;
+            color: #3a6c9b;
+        }
+        img {
+            width: 97%;
+            display: block;
+            margin: 20px auto;
+            height: auto;
+            border: 1px solid #cfcfcf;
+            outline: 1px solid #cfcfcf;
+            outline-offset: 5px;
+        }
+        .list-heading {
+            display: block;
+            text-decoration: underline;
+            margin-left: -25px;
+            margin-bottom: 6px;
+        }
+        #app-link {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Ticket</h1>
+        <p>
+            A browser based ticket system for a single person for fast creation of a ticket list.<br>
+            Intended for programmers, but can be used by anyone.
+        </p>
+
+        <a href="scrot.png"><img src="scrot.png" alt="Screenshot"></a>
+
+
+        <ul><span class="list-heading">What you can do</span>
+            <li>Create, delete and edit tickets / tasks</li>
+            <li>Export and import all tasks with a JSON string</li>
+            <li>Sort tickets by subject, modified date or state</li>
+            <li>Give tickets a text, priority and state</li>
+            <li>No server needed, everything is stored in the browsers <code>localStorage</code></li>
+            <li>Be sure that nobody (except your browser) can access your data</li>
+            <li>Host it simple on your own (just standalone HTML, CSS, JS)...</li>
+            <li>...or use <a href="https://mbndr.github.io/ticket">Github</a> as a host</li>
+        </ul>
+
+        <ul><span class="list-heading">What you can't do</span>
+            <li>Collaborate with other people</li>
+            <li>Be sure your tickets are saved somewhere central (use import / export)</li>
+        </ul>
+
+        <a href="scrot_full.png">Full screenshot</a>
+        |
+        <a href="https://github.com/mbndr/ticket">Github</a>
+        |
+        <a href="index.html" id="app-link">To the Application</a>
+    </div>
+</body>
+</html>

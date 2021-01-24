@@ -3,201 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <title>Ticket</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            color: white;
-            background-color: #515d63;
-            font-family: monospace;
-        }
-        a {
-            text-decoration: none;
-            color: #b9c597;
-        }
-        a:hover {
-            color: #d2d8c0;
-        }
-        .container {
-            margin: 0 auto;
-            max-width: 1200px;
-        }
-        button.clear {
-            color: #ee7935 !important;
-            border-color: #ee7935 !important;
-        }
-        #bottom {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #66818d;
-            border-top: #3d4b52 1px solid;
-            padding: 10px;
-        }
-        #bottom #toggler {
-            position: absolute;
-            top: -18px;
-            left: 10px;
-            background-color: #3d4b52;
-            border: #333e44 1px solid;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        #bottom .col-left {
-            display: inline-block;
-            width: 79%;
-            vertical-align: middle;
-        }
-        #bottom .col-right {
-            display: inline-block;
-            width: 19%;
-            vertical-align: middle;
-        }
-        #bottom input[type="text"],
-        #bottom textarea {
-            border-radius: 3px;
-            border: none;
-            padding: 4px 8px;
-            color: white;
-            box-shadow: inset 0 0 4px #333;
-            background-color: #53555a;
-            width: 100%;
-            display: block;
-            margin: 5px auto;
-            box-sizing: border-box;
-        }
-        #bottom button {
-            border-radius: 3px;
-            color: white;
-            background: linear-gradient(#696969 0%, #5c5c5c 100%);
-            border: solid 1px #505050;
-            padding: 4px 10px;
-            display: block;
-            margin: 5px auto;
-            width: 100%;
-        }
-        #bottom #clear {
-            margin-top: 20px;
-        }
-
-        #tickets {
-            width: 99%;
-            border-collapse: collapse;
-            border: #3d4b52 1px solid;
-            margin: 1% auto 150px auto;
-        }
-        #tickets thead {
-            background-color: #66818d;
-            text-align: left;
-        }
-        #tickets tbody tr.ticket {
-            cursor: pointer;
-        }
-        #tickets tbody tr.ticket.expanded {
-            /*  */
-        }
-        #tickets tbody tr.o {
-            background-color: #739aac;
-        }
-        #tickets tbody tr.e {
-            background-color: #6a8b9b;
-        }
-        #tickets tbody tr.sub {
-            background-color: #6a6c6d;
-            box-shadow: inset 0 0 5px #333;
-        }
-        #tickets tbody tr.sub td {
-            padding: 8px;
-        }
-        #tickets td, #tickets th {
-            padding: 2px 5px;
-        }
-        #tickets .badge {
-            text-transform: uppercase;
-            background-color: #5f7985;
-            font-size: 0.8em;
-            border-radius: 3px;
-            padding: 0px 3px;
-            border: 1px solid #486572;
-        }
-        #tickets .badge.n {
-            background-color: #ddba5a;
-            border-color: #c2a556;
-        }
-        #tickets .badge.p {
-            background-color: #4eb3d1;
-            border-color: #4099b4;
-        }
-        #tickets .badge.d {
-            background-color: #aabe71;
-            border-color: #8fa74f;
-        }
-
-        #tickets input[type="text"],
-        #tickets textarea,
-        #tickets select {
-            border-radius: 3px;
-            border: none;
-            padding: 4px 8px;
-            color: white;
-            box-shadow: inset 0 0 4px #333;
-            background-color: #626364;
-            display: block;
-            width: 100%;
-            margin: 5px 0;
-            box-sizing: border-box;
-        }
-        #tickets button {
-            border-radius: 3px;
-            color: white;
-            background: linear-gradient(#696969 0%, #5c5c5c 100%);
-            border: solid 1px #505050;
-            padding: 4px 10px;
-            margin: auto 10px;
-            border-color: #65ac2c;
-            color: #77be3c;
-        }
-        #tickets button:active {
-            box-shadow: inset 0 0 3px #333;
-            color: #aaa;
-        }
-        #tickets select {
-            width: 50%;
-            display: inline-block;
-            margin-right: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="ticket.css">
+    <title>🎫 Ticket</title>
 </head>
 <body>
+
+    <div id="flash">test</div>
 
     <div class="container">
 
         <table id="tickets">
+            <colgroup>
+                <col style="width: 5%">
+                <col style="width: 5%">
+                <col style="width: 50%">
+                <col style="width: 30%">
+                <col style="width: 10%">
+            </colgroup>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Subject</th>
-                    <th>Last modified</th>
-                    <th>State</th>
+                    <th id="sort-reset" title="Reset sorting" class="sortable">ID</th>
+                    <th><!-- Priority--></th>
+                    <th id="sort-subject" class="sortable">Subject<span id="sort-subject-indicator" class=""></span></th>
+                    <th id="sort-modified" class="sortable">Last modified<span id="sort-modified-indicator" class=""></span></th>
+                    <th id="sort-state" class="sortable">State<span id="sort-state-indicator" class=""></span></th>
                 </tr>
             </thead>
             <tbody></tbody>
-        </table>        
+        </table>       
     </div>
 
     <div id="bottom">
         <div id="toggler">Toggle</div>
+        <a href="about.html" id="about">About</a>
         <div class="container" id="bottom-container">
             <div class="col-left">
                 <form id="new-form">
-                    <span id="new-messages"></span>
-                    <input type="text" id="new-subject" placeholder="Subject">
+                    <input type="text" id="new-subject" placeholder="Subject" autocomplete="off">
                     <textarea id="new-text" placeholder="Text"></textarea>
                     <button type="submit" id="new-create">Create</button>
                 </form>
@@ -210,292 +52,37 @@
         </div>
     </div>
         
-
-    <script>
-        // Thanks Stackoverflow
-        function generateUID() {
-            var firstPart = (Math.random() * 46656) | 0;
-            var secondPart = (Math.random() * 46656) | 0;
-            firstPart = ("000" + firstPart.toString(36)).slice(-3);
-            secondPart = ("000" + secondPart.toString(36)).slice(-3);
-            return firstPart + secondPart;
-        }
-
-        // in storage: t:tickets and t:sortKey
-        (function(renderedUID){
-            const STATE_NEW = "n";
-            const STATE_IN_PROGRESS = "p";
-            const STATE_DONE = "d";
-
-            //let tickets = []; // for testing
-            const table = document.getElementById("tickets");
-            const new_messages = document.getElementById("new-messages");
-            const new_subject = document.getElementById("new-subject");
-            const new_text = document.getElementById("new-text");
-            const new_button = document.getElementById("new-create");
-            const bottom_container = document.getElementById("bottom-container");
-
-            // load tickets
-            let tickets = loadTickets();
-            renderTickets(tickets);
-            if (renderedUID !== "") {
-                toggleTicket(renderedUID);
-            }
-
-            // register listeners
-            document.querySelector("#bottom #toggler").addEventListener("click", function() {
-                bottom_container.hidden = !bottom_container.hidden;
-            });
-
-            document.getElementById("export").addEventListener("click", function() {
-                exportObj = {
-                    "tickets": loadTickets()
-                };
-                prompt("Save this JSON string for saving your data.", JSON.stringify(exportObj));
-            });
-
-            document.getElementById("import").addEventListener("click", function() {
-                importJson = prompt("Insert an exported JSON string.\n\nATTENTION: Current data will be lost!");
-                tickets = JSON.parse(importJson).tickets;
-                console.log(tickets);
-                saveTickets(tickets);
-                renderTickets(tickets);
-            });
-
-            document.getElementById("clear").addEventListener("click", function() {
-                sure = confirm("Really delete all your data?");
-                if (sure) {
-                    tickets = [];
-                    saveTickets(tickets);
-                    renderTickets(tickets);
-                }
-            });
-
-
-            document.getElementById("new-form").addEventListener("submit", function(e) {
-                e.preventDefault();
-                new_messages.innerText = "";
-
-                new_button.disabled = true;
-                if (validateNew()) {
-                    uid = generateUID();
-                    tickets.push({
-                        "uid": uid, // TODO: test if already exists
-                        "subject": new_subject.value,
-                        "text": new_text.value,
-                        "created": Date.now(),
-                        "modified": Date.now(),
-                        "state": STATE_NEW,
-                        "comments": []
-                    });
-                    saveTickets(tickets);
-                    tickets = loadTickets();
-                    renderTickets(tickets);
-                    toggleTicket(uid);
-                }
-                
-                clearNew();
-
-                function validateNew() {
-                    new_messages.innerText = "";
-
-                    if (new_subject.value === "") {
-                        new_messages.innerText = "No subject given";
-                        console.log("NO");
-                    }
-
-                    return new_messages.innerText === "";
-                }
-
-                function clearNew() {
-                    new_subject.value = "";
-                    new_text.value = "";
-                    new_button.disabled = false;
-                }
-            });
-
+    <template id="ticketTemplate">
+        <tr class="ticket-row">
+            <td><span class="badge uid"></span></td>
+            <td><span class="priority">🔥</span></td>
+            <td><span class="subject"></span></td>
+            <td><span class="modified"></span></td>
+            <td><span class="state badge"></span></td>
+        </tr>
+        <tr class="detail-row">
+                <td colspan="3">
+                    <input type="text" class="subject" placeholder="Subject">
+                    <textarea class="text" placeholder="Text"></textarea>
+                </td>
+                <td>
+                    <label class="priority-label"><input type="checkbox" class="priority">🔥 Priority</label>
+                    <div class="state-radio-wrapper">
+                        <label><input type="radio" class="state" value="n"><span class="badge n">new</span></label>
+                        <label><input type="radio" class="state" value="p"><span class="badge p">in progress</span></label>
+                        <label><input type="radio" class="state" value="d"><span class="badge d">done</span></label>
+                        <label><input type="radio" class="state" value="c"><span class="badge c">canceled</span></label>
+                    </div>
+                </td>
+                <td>
+                    <button class="save">Save</button>
+                    <button class="clear delete">🗑 Delete</button>
+                </td>
             
-            
-            // load from localStorage
-            function loadTickets() {
-                return JSON.parse(localStorage.getItem("t:tickets")) || [];
-            }
+        </tr>
+    </template>
 
-            // save to localStorage
-            function saveTickets(tickets) {
-                localStorage.setItem("t:tickets", JSON.stringify(tickets))
-            }
-
-            function toggleTicket(uid) {
-                const ticketRow = document.getElementById(uid);
-                const detailRow = document.getElementById(uid + "_detail");
-
-                if (!ticketRow || !detailRow) return;
-
-                if (detailRow.hidden) {
-                    detailRow.hidden = false;
-                    ticketRow.classList.add("expanded");
-                    location.hash = uid;
-                }
-                else {
-                    detailRow.hidden = true;
-                    ticketRow.classList.remove("expanded");
-                    location.hash = "";
-                }
-            }
-
-            // update ticket to storage
-            function updateTicket(t) {
-                for (let i = 0; i < tickets.length; i++) {
-                    if (t.uid === tickets[i].uid) {
-                        tickets[i] = t;
-                        break;
-                    }
-                }
-                saveTickets(tickets);
-                renderTickets(tickets);
-                toggleTicket(t.uid);
-            }
-
-            // remove ticket from storage
-            function removeTicket(t) {
-                for (let i = 0; i < tickets.length; i++) {
-                    if (t.uid === tickets[i].uid) {
-                        tickets.splice(i, 1);
-                        break;
-                    }
-                }
-                saveTickets(tickets);
-                renderTickets(tickets);
-            }
-
-            // render tickets to table
-            function renderTickets(tickets) {
-
-                function getTableDataElement(value, classes = "") {
-                    let td = document.createElement("td");
-                    let inner = document.createElement("span");
-                    inner.className = classes;
-                    inner.innerText = value;
-                    td.appendChild(inner);
-                    return td;
-                }
-
-                function getTicketRow(t, i) {
-                    let row = document.createElement("tr");
-                    row.id = t.uid;
-                    row.className = "ticket " + ((i % 2 == 0) ? "e" : "o");
-                    row.appendChild(getTableDataElement(t.uid, "badge"));
-                    row.appendChild(getTableDataElement(t.subject, "subject"));
-                    row.appendChild(getTableDataElement(date2str(new Date(t.modified))));
-                    row.appendChild(getTableDataElement(state2str(t.state), "badge " + t.state));
-
-                    row.addEventListener("click", function() {
-                        toggleTicket(t.uid);
-                    });
-
-                    return row;
-                }
-
-                function getDetailRow(t, ticketRow) {
-                    let row = document.createElement("tr");
-                    row.className = "sub";
-                    row.id = t.uid + "_detail";
-                    // input fields
-                    let tdInput = document.createElement("td");
-                    tdInput.colSpan = 2;
-                    // section
-                    let inputSubject = document.createElement("input");
-                    inputSubject.type = "text";
-                    inputSubject.value = t.subject;
-                    // text
-                    let inputText = document.createElement("textarea");
-                    inputText.value = t.text;
-                    // state select TODO: refactor this
-                    let inputState = document.createElement("select");
-                    let optNew = document.createElement("option");
-                    optNew.value = STATE_NEW;
-                    optNew.innerText = "NEW";
-                    optNew.selected = t.state === STATE_NEW;
-                    let optProgress = document.createElement("option");
-                    optProgress.value = STATE_IN_PROGRESS;
-                    optProgress.innerText = "IN PROGRESS";
-                    optProgress.selected = t.state === STATE_IN_PROGRESS;
-                    let optDone = document.createElement("option");
-                    optDone.value = STATE_DONE;
-                    optDone.innerText = "DONE";
-                    optDone.selected = t.state === STATE_DONE;
-                    inputState.appendChild(optNew);
-                    inputState.appendChild(optProgress);
-                    inputState.appendChild(optDone);
-
-                    // submit
-                    let inputSubmit = document.createElement("button");
-                    inputSubmit.innerText = "Save";
-                    inputSubmit.addEventListener("click", function() {
-                        t.subject = inputSubject.value;
-                        t.text = inputText.value;
-                        t.state = inputState.value;
-                        t.modified = Date.now();
-                        updateTicket(t);
-                    });
-
-                    // delete
-                    let inputDelete = document.createElement("button");
-                    inputDelete.className = "clear";
-                    inputDelete.innerText = "🗑 Delete";
-                    inputDelete.addEventListener("click", function() {
-                        if (confirm("Are you sure?")) {
-                            removeTicket(t);
-                        }
-                    });
-
-                    // comment fields
-                    let tdComments = document.createElement("td");
-                    tdComments.colSpan = 2;
-                    
-                    tdInput.appendChild(inputSubject);
-                    tdInput.appendChild(inputText);
-                    tdInput.appendChild(inputState);
-                    tdInput.appendChild(inputSubmit);
-                    tdInput.appendChild(inputDelete);
-
-                    row.appendChild(tdInput);
-                    row.appendChild(tdComments);
-                    row.hidden = true;
-                    return row;
-                }
-
-                let tbody = document.createElement("tbody");
-
-                for (let i = 0; i < tickets.length; i++) {
-                    t = tickets[i];
-                    let ticketRow = getTicketRow(t, i);
-                    let detailRow = getDetailRow(t, ticketRow);
-
-                    tbody.appendChild(ticketRow);
-                    tbody.appendChild(detailRow);
-                }
-
-                table.replaceChild(tbody, table.querySelector("tbody"))
-            }
-
-            function date2str(d) {
-                return d.toLocaleDateString() + " " + d.toLocaleTimeString();
-            }
-
-            function state2str(s) {
-                switch (s) {
-                    case STATE_NEW: return "new"; break;                
-                    case STATE_IN_PROGRESS: return "in progress"; break;
-                    case STATE_DONE: return "done"; break;
-                    default: return "unknown";
-                }
-            }
-
-            function sortTickets(tickets, key) {} // TODO: sorts tickets with key and save key
-        }(location.hash.replace("#", "")));
-    </script>
+    <script src="ticket.js"></script>
 
 </body>
 </html>
